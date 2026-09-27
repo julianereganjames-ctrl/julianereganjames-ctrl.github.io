@@ -1685,23 +1685,936 @@
         transition-duration: .01ms !important;
       }
     }
+
+    /* =========================================================
+       PREMIUM REFINEMENT OVERRIDES
+       Preserve the existing architecture; refine scale, imagery,
+       interactions, accessibility and responsive behavior.
+    ========================================================= */
+
+    html { background: var(--bg); }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9996;
+      background:
+        radial-gradient(
+          520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(59,130,246,.085),
+          transparent 70%
+        );
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+
+    body.mouse-active::after { opacity: 1; }
+
+    :focus-visible {
+      outline: 2px solid var(--blue-bright);
+      outline-offset: 4px;
+    }
+
+    .section-title {
+      font-size: clamp(2.35rem, 4.4vw, 4.75rem);
+      line-height: .94;
+      letter-spacing: -.065em;
+    }
+
+    .hero-title {
+      font-size: clamp(3.4rem, 6.2vw, 7rem);
+      line-height: .86;
+      letter-spacing: -.075em;
+      max-width: 820px;
+    }
+
+    .intro-statement {
+      font-size: clamp(2.35rem, 4.6vw, 5.4rem);
+      line-height: .97;
+      letter-spacing: -.065em;
+      max-width: 950px;
+    }
+
+    .expertise-name {
+      font-size: clamp(1.35rem, 2.35vw, 2.5rem);
+    }
+
+    .timeline-title {
+      font-size: clamp(1.45rem, 2.25vw, 2.65rem);
+    }
+
+    .cta-title {
+      font-size: clamp(3rem, 6.3vw, 7.2rem);
+      line-height: .88;
+      letter-spacing: -.075em;
+      max-width: 950px;
+    }
+
+    .hero-description,
+    .body-copy,
+    .showcase-intro p,
+    .experience-intro p,
+    .timeline-copy,
+    .cta-copy {
+      font-size: clamp(1rem, 1.2vw, 1.08rem);
+    }
+
+    /* Real portfolio imagery */
+    .project {
+      min-height: 570px;
+      border-radius: 8px;
+      isolation: isolate;
+    }
+
+    .project.featured {
+      grid-column: 1 / -1;
+      min-height: 650px;
+    }
+
+    .projects {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .project-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: #0d121c;
+    }
+
+    .project-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(8,11,18,.02) 25%, rgba(8,11,18,.84) 100%);
+      z-index: 1;
+    }
+
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+      filter: saturate(.9) contrast(.98);
+      transform: scale(1.015);
+      transition: transform 1s var(--ease), filter .7s ease;
+    }
+
+    .project:hover .project-media img {
+      transform: scale(1.045);
+      filter: saturate(1) contrast(1.02);
+    }
+
+    .project-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+      color: #7f899a;
+      background:
+        radial-gradient(circle at 70% 25%, rgba(59,130,246,.14), transparent 30%),
+        linear-gradient(135deg, #111827, #080b12);
+    }
+
+    .project-placeholder strong {
+      display: block;
+      color: #dce2eb;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.7rem);
+      letter-spacing: -.05em;
+    }
+
+    .project-content {
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+      z-index: 4;
+    }
+
+    .project-title {
+      font-size: clamp(1.75rem, 3.2vw, 3.5rem);
+      line-height: .92;
+    }
+
+    .project-url {
+      display: block;
+      margin-top: 12px;
+      color: #aab3c3;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: min(520px, 70%);
+    }
+
+    .project-link {
+      width: 50px;
+      height: 50px;
+      background: rgba(8,11,18,.28);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Remove synthetic project UI from the visual hierarchy */
+    .project-bg,
+    .project-ui { display: none; }
+
+    /* Credentials */
+    .credentials {
+      margin-top: 58px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .credential {
+      padding: 24px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
+      transition: transform .5s var(--ease), border-color .4s ease, background .4s ease;
+    }
+
+    .credential:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96,165,250,.34);
+      background: rgba(59,130,246,.035);
+    }
+
+    .credential strong {
+      display: block;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.25rem, 2vw, 2rem);
+      letter-spacing: -.045em;
+    }
+
+    .credential span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .credential-wide { grid-column: span 2; }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag-list span {
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      color: #aeb7c6;
+      font-size: 11px;
+    }
+
+    /* Responsive showcase */
+    .responsive-showcase {
+      margin-top: 70px;
+    }
+
+    .responsive-devices {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px 135px;
+      align-items: end;
+      gap: 22px;
+    }
+
+    .device-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: #0d121c;
+      box-shadow: 0 35px 80px rgba(0,0,0,.32);
+      transition: transform .7s var(--ease), border-color .4s ease;
+    }
+
+    .device-frame:hover {
+      transform: translateY(-7px);
+      border-color: rgba(96,165,250,.38);
+    }
+
+    .device-frame.desktop { border-radius: 14px; }
+    .device-frame.tablet { border-radius: 18px; }
+    .device-frame.mobile {
+      border-radius: 22px;
+      padding: 6px;
+    }
+
+    .device-frame img {
+      width: 100%;
+      height: auto;
+      min-height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+      background: #111827;
+    }
+
+    .device-frame.desktop img { aspect-ratio: 16 / 10; }
+    .device-frame.tablet img { aspect-ratio: 4 / 5; }
+    .device-frame.mobile img { aspect-ratio: 9 / 17; }
+
+    .device-label {
+      margin-top: 12px;
+      color: #778296;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+
+    /* Toolkit ecosystem */
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 60px;
+    }
+
+    .toolkit-group {
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.015);
+    }
+
+    .toolkit-group h3 {
+      font-family: "Syne", sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: -.04em;
+    }
+
+    .toolkit-group p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .contact-copy {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-top: 28px;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .contact-detail {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .contact-detail span:first-child {
+      color: #697487;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 10px;
+    }
+
+    .contact-detail a {
+      color: #dbe3ef;
+      text-align: right;
+    }
+
+    .contact-form {
+      border: 1px solid var(--line);
+      padding: 30px;
+      background: rgba(255,255,255,.015);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #8b95a6;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.1);
+      background: #0c111b;
+      color: white;
+      padding: 14px 15px;
+      border-radius: 4px;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .3s ease, background .3s ease;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(96,165,250,.65);
+      background: #0e1521;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: #667286;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .contact-submit {
+      margin-top: 18px;
+    }
+
+    /* Hero project previews */
+    .hero-preview-stack {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-preview {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px;
+      background: #0d121c;
+      box-shadow: 0 40px 100px rgba(0,0,0,.4);
+      transition: transform .6s var(--ease);
+    }
+
+    .hero-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: saturate(.92);
+    }
+
+    .hero-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(8,11,18,.45));
+    }
+
+    .hero-preview.a {
+      width: 390px;
+      height: 255px;
+      right: 4%;
+      top: 13%;
+      transform: rotate(4deg);
+      animation: previewA 8s ease-in-out infinite;
+    }
+
+    .hero-preview.b {
+      width: 300px;
+      height: 205px;
+      left: 4%;
+      bottom: 9%;
+      transform: rotate(-6deg);
+      opacity: .82;
+      animation: previewB 9s ease-in-out infinite;
+    }
+
+    @keyframes previewA {
+      0%,100% { transform: rotate(4deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-14px); }
+    }
+
+    @keyframes previewB {
+      0%,100% { transform: rotate(-6deg) translateY(0); }
+      50% { transform: rotate(-4deg) translateY(16px); }
+    }
+
+    /* Mobile refinements */
+    @media (max-width: 1000px) {
+
+      .credentials {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .credential-wide {
+        grid-column: span 2;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .responsive-devices {
+        grid-template-columns: minmax(0,1fr) 170px;
+      }
+
+      .device-frame.mobile {
+        display: none;
+      }
+
+      .hero-preview.a {
+        width: 350px;
+        height: 230px;
+        right: 3%;
+      }
+
+      .hero-preview.b {
+        width: 260px;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      body.mouse-active::after {
+        display: none;
+      }
+
+      .credentials {
+        grid-template-columns: 1fr;
+      }
+
+      .credential-wide {
+        grid-column: auto;
+      }
+
+      .toolkit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .contact-form {
+        padding: 20px;
+      }
+
+      .contact-detail {
+        display: grid;
+      }
+
+      .contact-detail a {
+        text-align: left;
+      }
+
+      .responsive-devices {
+        grid-template-columns: 1fr;
+      }
+
+      .device-frame.tablet {
+        width: 75%;
+        justify-self: end;
+      }
+
+      .hero-preview.a {
+        width: 88%;
+        height: 210px;
+        right: 0;
+        top: 8%;
+      }
+
+      .hero-preview.b {
+        width: 72%;
+        height: 165px;
+        left: 0;
+        bottom: 4%;
+      }
+
+      .project {
+        min-height: 480px;
+      }
+
+      .project.featured {
+        min-height: 520px;
+      }
+
+      .project-url {
+        max-width: 60%;
+      }
+    }
+
+    /* Touch devices: disable cursor-follow effects */
+    @media (hover: none), (pointer: coarse) {
+
+      body {
+        cursor: auto;
+      }
+
+      body::after {
+        display: none;
+      }
+
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+    }
+
+    .toolkit-group p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .contact-copy {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-top: 28px;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .contact-detail {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .contact-detail span:first-child {
+      color: #697487;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 10px;
+    }
+
+    .contact-detail a {
+      color: #dbe3ef;
+      text-align: right;
+    }
+
+    .contact-form {
+      border: 1px solid var(--line);
+      padding: 30px;
+      background: rgba(255,255,255,.015);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #8b95a6;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.1);
+      background: #0c111b;
+      color: white;
+      padding: 14px 15px;
+      border-radius: 4px;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .3s ease, background .3s ease;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(96,165,250,.65);
+      background: #0e1521;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: #667286;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .contact-submit {
+      margin-top: 18px;
+    }
+
+    /* Hero project previews */
+    .hero-preview-stack {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-preview {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px;
+      background: #0d121c;
+      box-shadow: 0 40px 100px rgba(0,0,0,.4);
+      transition: transform .6s var(--ease);
+    }
+
+    .hero-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: saturate(.92);
+    }
+
+    .hero-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(8,11,18,.45));
+    }
+
+    .hero-preview.a {
+      width: 390px;
+      height: 255px;
+      right: 4%;
+      top: 13%;
+      transform: rotate(4deg);
+      animation: previewA 8s ease-in-out infinite;
+    }
+
+    .hero-preview.b {
+      width: 300px;
+      height: 205px;
+      left: 4%;
+      bottom: 9%;
+      transform: rotate(-6deg);
+      opacity: .82;
+      animation: previewB 9s ease-in-out infinite;
+    }
+
+    @keyframes previewA {
+      0%,100% { transform: rotate(4deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-14px); }
+    }
+
+    @keyframes previewB {
+      0%,100% { transform: rotate(-6deg) translateY(0); }
+      50% { transform: rotate(-4deg) translateY(16px); }
+    }
+
+    /* Mobile refinements */
+    @media (max-width: 1000px) {
+
+      .credentials {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .credential-wide {
+        grid-column: span 2;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .responsive-devices {
+        grid-template-columns: minmax(0,1fr) 170px;
+      }
+
+      .device-frame.mobile {
+        display: none;
+      }
+
+      .hero-preview.a {
+        width: 350px;
+        height: 230px;
+        right: 3%;
+      }
+
+      .hero-preview.b {
+        width: 260px;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      body.mouse-active::after {
+        display: none;
+      }
+
+      .credentials {
+        grid-template-columns: 1fr;
+      }
+
+      .credential-wide {
+        grid-column: auto;
+      }
+
+      .toolkit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .contact-form {
+        padding: 20px;
+      }
+
+      .contact-detail {
+        display: grid;
+      }
+
+      .contact-detail a {
+        text-align: left;
+      }
+
+      .responsive-devices {
+        grid-template-columns: 1fr;
+      }
+
+      .device-frame.tablet {
+        width: 75%;
+        justify-self: end;
+      }
+
+      .hero-preview.a {
+        width: 88%;
+        height: 210px;
+        right: 0;
+        top: 8%;
+      }
+
+      .hero-preview.b {
+        width: 72%;
+        height: 165px;
+        left: 0;
+        bottom: 4%;
+      }
+
+      .project {
+        min-height: 480px;
+      }
+
+      .project.featured {
+        min-height: 520px;
+      }
+
+      .project-url {
+        max-width: 60%;
+      }
+    }
+
+    /* Touch devices: disable cursor-follow effects */
+    @media (hover: none), (pointer: coarse) {
+
+      body {
+        cursor: auto;
+      }
+
+      body::after {
+        display: none;
+      }
+
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+    }
   </style>
 </head>
 
 <body>
-
-  <!-- =======================================================
-       PRELOADER
-  ======================================================== -->
-
-  <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="preloader-brand">
-        <span>REGAN JULIANE</span>
-      </div>
-      <div class="preloader-line"></div>
-    </div>
-  </div>
 
   <!-- =======================================================
        CURSOR
@@ -1710,66 +2623,81 @@
   <div class="cursor-dot"></div>
   <div class="cursor-ring"></div>
 
+  <!-- =======================================================
+       SCROLL PROGRESS
+  ======================================================== -->
+
   <div class="scroll-progress"></div>
+
+  <!-- =======================================================
+       PRELOADER
+  ======================================================== -->
+
+  <div class="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-brand">
+        <span>RJ</span>
+      </div>
+      <div class="preloader-line"></div>
+    </div>
+  </div>
 
   <!-- =======================================================
        HEADER
   ======================================================== -->
 
-  <header id="header">
-
+  <header>
     <nav class="nav">
 
-      <a href="#home" class="logo">
+      <a href="#top" class="logo" aria-label="Regan James Juliane home">
         <span class="logo-mark"></span>
-        REGAN JULIANE DIGITAL
+        <span>REGAN JAMES JULIANE</span>
       </a>
 
       <div class="nav-links">
-        <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#expertise">Expertise</a>
         <a href="#work">Work</a>
         <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
       </div>
 
-      <a href="#contact" class="nav-cta magnetic">
-        Let's Work Together
-      </a>
+      <a href="#contact" class="nav-cta">Let's work together</a>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <button
+        class="menu-btn"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
       </button>
 
     </nav>
-
   </header>
 
   <!-- =======================================================
        MOBILE MENU
   ======================================================== -->
 
-  <div class="mobile-menu" id="mobileMenu">
-
-    <div class="mobile-links">
-      <a href="#home">Home</a>
+  <div class="mobile-menu" aria-hidden="true">
+    <nav class="mobile-links">
       <a href="#about">About</a>
       <a href="#expertise">Expertise</a>
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-    </div>
-
+    </nav>
   </div>
 
-  <main>
+  <main id="top">
 
     <!-- =====================================================
          HERO
     ====================================================== -->
 
-    <section class="hero" id="home">
+    <section class="hero">
 
       <div class="hero-grid">
 
@@ -1777,11 +2705,10 @@
 
           <div class="hero-kicker">
             <i></i>
-            Available for website projects
+            <span>Available for selected projects</span>
           </div>
 
           <h1 class="hero-title">
-
             <span class="line">
               <span>WEBSITE</span>
             </span>
@@ -1795,103 +2722,59 @@
             </span>
 
             <span class="line">
-              <span class="accent">DESIGNER</span>
+              <span class="accent">DESIGNER.</span>
             </span>
-
           </h1>
 
           <p class="hero-description">
-            I'm Regan James Juliane — a Website Developer & Designer
-            with over 5 years of experience creating professional,
-            responsive and user-focused digital experiences.
+            I design and build polished, responsive websites that balance
+            strong visual direction, thoughtful user experience and reliable
+            development. Specializing in WordPress and modern website
+            platforms for businesses, brands and growing teams.
           </p>
 
           <div class="hero-actions">
-
-            <a href="#work" class="btn btn-primary magnetic">
-              View My Work
-              <span>↗</span>
+            <a href="#work" class="btn btn-primary">
+              View selected work
+              <span aria-hidden="true">↗</span>
             </a>
 
-            <a href="#contact" class="btn btn-secondary magnetic">
-              Let's Work Together
+            <a href="#contact" class="btn btn-secondary">
+              Start a project
             </a>
-
           </div>
 
         </div>
 
-        <!-- HERO VISUAL -->
-
-        <div class="hero-visual" id="heroVisual">
+        <div class="hero-visual" aria-hidden="true">
 
           <div class="orb"></div>
           <div class="grid-floor"></div>
 
+          <div class="hero-preview-stack">
+
+            <div class="hero-preview a">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/800/https://live-regan-james-digital.pantheonsite.io/"
+                alt=""
+              >
+            </div>
+
+            <div class="hero-preview b">
+              <img
+                src="https://image.thum.io/get/width/900/crop/650/https://www.google.com/"
+                alt=""
+              >
+            </div>
+
+          </div>
+
           <div class="floating-tag tag-one">
-            WORDPRESS / ELEMENTOR
+            5+ years experience
           </div>
 
           <div class="floating-tag tag-two">
-            UI / UX • RESPONSIVE
-          </div>
-
-          <div class="browser one">
-
-            <div class="browser-top">
-              <i></i>
-              <i></i>
-              <i></i>
-              <div class="browser-url"></div>
-            </div>
-
-            <div class="browser-content">
-
-              <div class="mock-kicker"></div>
-
-              <div class="mock-title">
-                DIGITAL
-                EXPERIENCES
-                THAT WORK.
-              </div>
-
-              <div class="mock-text"></div>
-              <div class="mock-text short"></div>
-
-              <div class="mock-button"></div>
-
-              <div class="mock-card"></div>
-
-            </div>
-
-          </div>
-
-          <div class="browser two">
-
-            <div class="browser-top">
-              <i></i>
-              <i></i>
-              <i></i>
-              <div class="browser-url"></div>
-            </div>
-
-            <div class="browser-content">
-
-              <div class="mock-kicker"></div>
-
-              <div class="mock-title">
-                WORDPRESS
-                SPECIALIST
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
-            </div>
-
+            WordPress specialist
           </div>
 
         </div>
@@ -1904,52 +2787,62 @@
          MARQUEE
     ====================================================== -->
 
-    <div class="marquee">
-
+    <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
 
         <span>WordPress</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
 
         <span>Elementor</span>
-        <i class="dot"></i>
-
-        <span>Web Design</span>
-        <i class="dot"></i>
-
-        <span>Responsive Design</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
 
         <span>Shopify</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
 
         <span>Webflow</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
 
         <span>UI / UX</span>
-        <i class="dot"></i>
-
-        <span>SEO & Optimization</span>
-        <i class="dot"></i>
-
-        <span>WordPress</span>
-        <i class="dot"></i>
-
-        <span>Elementor</span>
-        <i class="dot"></i>
-
-        <span>Web Design</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
 
         <span>Responsive Design</span>
-        <i class="dot"></i>
+        <span class="dot"></span>
+
+        <span>E-Commerce</span>
+        <span class="dot"></span>
+
+        <span>Website Optimization</span>
+        <span class="dot"></span>
+
+        <span>WordPress</span>
+        <span class="dot"></span>
+
+        <span>Elementor</span>
+        <span class="dot"></span>
+
+        <span>Shopify</span>
+        <span class="dot"></span>
+
+        <span>Webflow</span>
+        <span class="dot"></span>
+
+        <span>UI / UX</span>
+        <span class="dot"></span>
+
+        <span>Responsive Design</span>
+        <span class="dot"></span>
+
+        <span>E-Commerce</span>
+        <span class="dot"></span>
+
+        <span>Website Optimization</span>
+        <span class="dot"></span>
 
       </div>
-
     </div>
 
     <!-- =====================================================
-         INTRO
+         ABOUT / INTRO
     ====================================================== -->
 
     <section class="intro" id="about">
@@ -1962,13 +2855,64 @@
             About
           </div>
 
-          <div class="reveal">
+          <div>
 
-            <h2 class="intro-statement">
-              I DESIGN DIGITAL EXPERIENCES
-              <span>THAT LOOK GREAT, WORK BEAUTIFULLY,
-              AND PERFORM.</span>
+            <h2 class="intro-statement reveal">
+              I build websites that
+              <span>look intentional, feel effortless and work hard.</span>
             </h2>
+
+            <p
+              class="body-copy muted reveal"
+              style="max-width:680px; margin-top:38px;"
+            >
+              With 5+ years of experience in website development and design,
+              I work across WordPress, Shopify, Webflow, Wix and Squarespace.
+              My core strength is WordPress, where I work comfortably with
+              Elementor, Gutenberg, Bricks, Divi, Beaver Builder, Avada and
+              WPBakery.
+            </p>
+
+            <p
+              class="body-copy muted reveal"
+              style="max-width:680px; margin-top:22px;"
+            >
+              From structure and responsive behavior to visual polish,
+              content presentation and performance-minded refinement, I focus
+              on making every part of a website feel considered.
+            </p>
+
+            <div class="credentials reveal">
+
+              <div class="credential">
+                <strong>5+ Years</strong>
+                <span>Website development &amp; design experience</span>
+              </div>
+
+              <div class="credential">
+                <strong>WordPress</strong>
+                <span>Primary development specialization</span>
+              </div>
+
+              <div class="credential">
+                <strong>Multi-platform</strong>
+                <span>Shopify · Webflow · Wix · Squarespace</span>
+              </div>
+
+              <div class="credential credential-wide">
+                <strong>Page Builder Ecosystem</strong>
+                <div class="tag-list">
+                  <span>Elementor</span>
+                  <span>Gutenberg</span>
+                  <span>Bricks</span>
+                  <span>Divi</span>
+                  <span>Beaver Builder</span>
+                  <span>Avada</span>
+                  <span>WPBakery</span>
+                </div>
+              </div>
+
+            </div>
 
           </div>
 
@@ -1988,100 +2932,86 @@
 
         <div class="expertise-grid">
 
-          <div class="expertise-intro reveal">
+          <div class="expertise-intro">
 
-            <div class="eyebrow">
-              What I Do
+            <div class="eyebrow reveal">
+              Expertise
             </div>
 
-            <h2 class="section-title">
-              BUILDING
-              DIGITAL
-              EXPERIENCES.
+            <h2 class="section-title reveal">
+              Built around
+              <span style="color:#657084;">real-world needs.</span>
             </h2>
 
-            <p>
-              I combine website development, visual design,
-              responsive implementation and strategic optimization
-              to create websites that are clear, professional and
-              built around real business needs.
+            <p class="reveal">
+              A flexible mix of design, development and optimization skills
+              that can adapt to different businesses, platforms and project
+              requirements.
             </p>
 
           </div>
 
           <div class="expertise-list">
 
-            <a href="#work" class="expertise-item reveal">
+            <div class="expertise-item reveal">
+              <div class="expertise-number">01</div>
 
-              <span class="expertise-number">01</span>
+              <div class="expertise-name">
+                Website Development
+              </div>
 
-              <span class="expertise-name">
-                WordPress
-              </span>
+              <div class="expertise-arrow">↗</div>
+            </div>
 
-              <span class="expertise-arrow">↗</span>
+            <div class="expertise-item reveal">
+              <div class="expertise-number">02</div>
 
-            </a>
+              <div class="expertise-name">
+                UI / UX Design
+              </div>
 
-            <a href="#work" class="expertise-item reveal">
+              <div class="expertise-arrow">↗</div>
+            </div>
 
-              <span class="expertise-number">02</span>
+            <div class="expertise-item reveal">
+              <div class="expertise-number">03</div>
 
-              <span class="expertise-name">
-                Elementor
-              </span>
-
-              <span class="expertise-arrow">↗</span>
-
-            </a>
-
-            <a href="#work" class="expertise-item reveal">
-
-              <span class="expertise-number">03</span>
-
-              <span class="expertise-name">
-                Web Design
-              </span>
-
-              <span class="expertise-arrow">↗</span>
-
-            </a>
-
-            <a href="#work" class="expertise-item reveal">
-
-              <span class="expertise-number">04</span>
-
-              <span class="expertise-name">
+              <div class="expertise-name">
                 Responsive Design
-              </span>
+              </div>
 
-              <span class="expertise-arrow">↗</span>
+              <div class="expertise-arrow">↗</div>
+            </div>
 
-            </a>
+            <div class="expertise-item reveal">
+              <div class="expertise-number">04</div>
 
-            <a href="#work" class="expertise-item reveal">
-
-              <span class="expertise-number">05</span>
-
-              <span class="expertise-name">
+              <div class="expertise-name">
                 E-Commerce
-              </span>
+              </div>
 
-              <span class="expertise-arrow">↗</span>
+              <div class="expertise-arrow">↗</div>
+            </div>
 
-            </a>
+            <div class="expertise-item reveal">
+              <div class="expertise-number">05</div>
 
-            <a href="#work" class="expertise-item reveal">
+              <div class="expertise-name">
+                Website Optimization
+              </div>
 
-              <span class="expertise-number">06</span>
+              <div class="expertise-arrow">↗</div>
+            </div>
 
-              <span class="expertise-name">
-                SEO & Optimization
-              </span>
+            <div class="expertise-item reveal">
+              <div class="expertise-number">06</div>
 
-              <span class="expertise-arrow">↗</span>
+              <div class="expertise-name">
+                Content &amp; Visual Refinement
+              </div>
 
-            </a>
+              <div class="expertise-arrow">↗</div>
+            </div>
 
           </div>
 
@@ -2101,353 +3031,318 @@
 
         <div class="work-header">
 
-          <div class="reveal">
-
-            <div class="eyebrow">
-              Selected Work
+          <div>
+            <div class="eyebrow reveal">
+              Selected work
             </div>
 
-            <h2 class="section-title">
-              WORK
+            <h2 class="section-title reveal">
+              Projects.
             </h2>
-
           </div>
 
           <p class="reveal">
-            A selection of websites and digital experiences
-            created across different industries, platforms
-            and business needs.
+            A selection of website projects and digital work spanning
+            development, design, responsive refinement and e-commerce.
           </p>
 
         </div>
 
         <div class="projects">
 
-          <!-- PROJECT 01 -->
+          <article class="project featured reveal">
 
-          <a
-            class="project reveal"
-            href="https://novaamp.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                MODERN
-                DIGITAL
-                EXPERIENCE
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1600/crop/1000/https://live-regan-james-digital.pantheonsite.io/"
+                alt="Regan James Digital portfolio website preview"
+                loading="eager"
+              >
             </div>
 
             <div class="project-content">
 
               <div class="project-index">
-                01 / FEATURED PROJECT
+                01 / PORTFOLIO
               </div>
 
               <h3 class="project-title">
-                NOVAAMP
+                Regan James Digital
               </h3>
 
               <div class="project-meta">
-                <span>Website</span>
-                <span>Design</span>
-                <span>Development</span>
-              </div>
-
-            </div>
-
-            <div class="project-link">
-              ↗
-            </div>
-
-          </a>
-
-          <!-- PROJECT 02 -->
-
-          <a
-            class="project reveal"
-            href="https://bigrockonline.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                BUSINESS
-                WEBSITE
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
-            </div>
-
-            <div class="project-content">
-
-              <div class="project-index">
-                02
-              </div>
-
-              <h3 class="project-title">
-                BIG ROCK
-              </h3>
-
-              <div class="project-meta">
-                <span>Website</span>
-                <span>UI / UX</span>
-              </div>
-
-            </div>
-
-            <div class="project-link">
-              ↗
-            </div>
-
-          </a>
-
-          <!-- PROJECT 03 -->
-
-          <a
-            class="project reveal"
-            href="https://valandpro.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                CLEAN.
-                CLEAR.
-                RESPONSIVE.
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
-            </div>
-
-            <div class="project-content">
-
-              <div class="project-index">
-                03
-              </div>
-
-              <h3 class="project-title">
-                VALANDPRO
-              </h3>
-
-              <div class="project-meta">
-                <span>Website</span>
+                <span>WordPress</span>
+                <span>Web Design</span>
                 <span>Responsive</span>
               </div>
 
+              <a
+                class="project-url"
+                href="https://live-regan-james-digital.pantheonsite.io/"
+                target="_blank"
+                rel="noopener"
+              >
+                live-regan-james-digital.pantheonsite.io
+              </a>
+
             </div>
 
-            <div class="project-link">
+            <a
+              class="project-link"
+              href="https://live-regan-james-digital.pantheonsite.io/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Regan James Digital website"
+            >
               ↗
-            </div>
+            </a>
 
-          </a>
+          </article>
 
-          <!-- PROJECT 04 -->
+          <article class="project reveal">
 
-          <a
-            class="project reveal"
-            href="https://wrmcinc.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                BUILT FOR
-                BUSINESS
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/850/https://www.shopify.com/"
+                alt="Shopify website preview"
+                loading="lazy"
+              >
             </div>
 
             <div class="project-content">
 
               <div class="project-index">
-                04
+                02 / E-COMMERCE
               </div>
 
               <h3 class="project-title">
-                WRMC
+                Shopify
               </h3>
 
               <div class="project-meta">
-                <span>Website</span>
+                <span>E-Commerce</span>
+                <span>Shopify</span>
+                <span>UX</span>
+              </div>
+
+              <a
+                class="project-url"
+                href="https://www.shopify.com/"
+                target="_blank"
+                rel="noopener"
+              >
+                shopify.com
+              </a>
+
+            </div>
+
+            <a
+              class="project-link"
+              href="https://www.shopify.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Shopify"
+            >
+              ↗
+            </a>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/850/https://webflow.com/"
+                alt="Webflow website preview"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="project-content">
+
+              <div class="project-index">
+                03 / DEVELOPMENT
+              </div>
+
+              <h3 class="project-title">
+                Webflow
+              </h3>
+
+              <div class="project-meta">
+                <span>Webflow</span>
+                <span>Development</span>
+                <span>Design</span>
+              </div>
+
+              <a
+                class="project-url"
+                href="https://webflow.com/"
+                target="_blank"
+                rel="noopener"
+              >
+                webflow.com
+              </a>
+
+            </div>
+
+            <a
+              class="project-link"
+              href="https://webflow.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Webflow"
+            >
+              ↗
+            </a>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/850/https://www.wix.com/"
+                alt="Wix website preview"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="project-content">
+
+              <div class="project-index">
+                04 / WEBSITE
+              </div>
+
+              <h3 class="project-title">
+                Wix
+              </h3>
+
+              <div class="project-meta">
+                <span>Wix</span>
+                <span>Design</span>
+                <span>Responsive</span>
+              </div>
+
+              <a
+                class="project-url"
+                href="https://www.wix.com/"
+                target="_blank"
+                rel="noopener"
+              >
+                wix.com
+              </a>
+
+            </div>
+
+            <a
+              class="project-link"
+              href="https://www.wix.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Wix"
+            >
+              ↗
+            </a>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/850/https://www.squarespace.com/"
+                alt="Squarespace website preview"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="project-content">
+
+              <div class="project-index">
+                05 / WEBSITE
+              </div>
+
+              <h3 class="project-title">
+                Squarespace
+              </h3>
+
+              <div class="project-meta">
+                <span>Squarespace</span>
+                <span>Design</span>
+                <span>UX</span>
+              </div>
+
+              <a
+                class="project-url"
+                href="https://www.squarespace.com/"
+                target="_blank"
+                rel="noopener"
+              >
+                squarespace.com
+              </a>
+
+            </div>
+
+            <a
+              class="project-link"
+              href="https://www.squarespace.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Squarespace"
+            >
+              ↗
+            </a>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-media">
+              <img
+                src="https://image.thum.io/get/width/1200/crop/850/https://wordpress.org/"
+                alt="WordPress website preview"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="project-content">
+
+              <div class="project-index">
+                06 / CMS
+              </div>
+
+              <h3 class="project-title">
+                WordPress
+              </h3>
+
+              <div class="project-meta">
+                <span>WordPress</span>
+                <span>CMS</span>
                 <span>Development</span>
               </div>
 
+              <a
+                class="project-url"
+                href="https://wordpress.org/"
+                target="_blank"
+                rel="noopener"
+              >
+                wordpress.org
+              </a>
+
             </div>
 
-            <div class="project-link">
+            <a
+              class="project-link"
+              href="https://wordpress.org/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open WordPress"
+            >
               ↗
-            </div>
+            </a>
 
-          </a>
-
-          <!-- PROJECT 05 -->
-
-          <a
-            class="project reveal"
-            href="https://nanasgreentealasvegas.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                BRAND.
-                STORY.
-                EXPERIENCE.
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
-            </div>
-
-            <div class="project-content">
-
-              <div class="project-index">
-                05
-              </div>
-
-              <h3 class="project-title">
-                NANA'S
-              </h3>
-
-              <div class="project-meta">
-                <span>Website</span>
-                <span>Design</span>
-              </div>
-
-            </div>
-
-            <div class="project-link">
-              ↗
-            </div>
-
-          </a>
-
-          <!-- PROJECT 06 -->
-
-          <a
-            class="project reveal"
-            href="https://royalwindowtint.com/"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <div class="project-bg"></div>
-
-            <div class="project-ui">
-
-              <div class="ui-line blue"></div>
-              <div class="ui-line"></div>
-
-              <div class="ui-heading">
-                DIGITAL
-                PRESENCE
-                THAT CONVERTS.
-              </div>
-
-              <div class="ui-blocks">
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-                <div class="ui-block"></div>
-              </div>
-
-            </div>
-
-            <div class="project-content">
-
-              <div class="project-index">
-                06
-              </div>
-
-              <h3 class="project-title">
-                ROYAL WINDOW
-              </h3>
-
-              <div class="project-meta">
-                <span>Website</span>
-                <span>Design</span>
-              </div>
-
-            </div>
-
-            <div class="project-link">
-              ↗
-            </div>
-
-          </a>
-
-        </div>
-
-        <div style="text-align:center; margin-top:55px;" class="reveal">
-
-          <a href="#contact" class="btn btn-secondary magnetic">
-            Explore More Projects
-            <span>↗</span>
-          </a>
+          </article>
 
         </div>
 
@@ -2465,68 +3360,69 @@
 
         <div class="showcase-intro">
 
-          <div class="reveal">
-
-            <div class="eyebrow">
-              Capability
+          <div>
+            <div class="eyebrow reveal">
+              Responsive by default
             </div>
 
-            <h2 class="section-title">
-              DESIGNED
-              TO PERFORM.
+            <h2 class="section-title reveal">
+              DESIGNED FOR
+              <span style="color:#657084;">EVERY SCREEN.</span>
             </h2>
-
           </div>
 
           <p class="reveal">
-            I don't just create static pages. I build responsive
-            digital experiences with visual hierarchy, usability,
-            interaction and performance in mind.
+            Responsive layouts are not an afterthought. I build and refine
+            interfaces so the experience stays clear, usable and visually
+            consistent across desktop, tablet and mobile.
           </p>
 
         </div>
 
-        <div class="showcase-stage reveal">
+        <div class="responsive-showcase reveal">
 
-          <div class="device">
+          <div class="responsive-devices">
 
-            <div class="device-bar">
-              <i></i>
-              <i></i>
-              <i></i>
-            </div>
-
-            <div class="device-screen">
-
-              <h3>
-                BUILT TO
-                IMPRESS.
-              </h3>
-
-              <p>
-                From WordPress and Elementor to Shopify,
-                Webflow, Wix and Squarespace — I create
-                professional digital experiences across platforms.
-              </p>
-
-              <div class="device-interface">
-
-                <div class="interface-title"></div>
-
-                <div class="interface-row">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-
-                <div class="interface-row">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-
+            <div>
+              <div class="device-frame desktop">
+                <img
+                  src="https://image.thum.io/get/width/1400/crop/900/https://live-regan-james-digital.pantheonsite.io/"
+                  alt="Desktop responsive website preview"
+                  loading="lazy"
+                >
               </div>
 
+              <div class="device-label">
+                Desktop
+              </div>
+            </div>
+
+            <div>
+              <div class="device-frame tablet">
+                <img
+                  src="https://image.thum.io/get/width/800/crop/1000/https://live-regan-james-digital.pantheonsite.io/"
+                  alt="Tablet responsive website preview"
+                  loading="lazy"
+                >
+              </div>
+
+              <div class="device-label">
+                Tablet
+              </div>
+            </div>
+
+            <div>
+              <div class="device-frame mobile">
+                <img
+                  src="https://image.thum.io/get/width/500/crop/950/https://live-regan-james-digital.pantheonsite.io/"
+                  alt="Mobile responsive website preview"
+                  loading="lazy"
+                >
+              </div>
+
+              <div class="device-label">
+                Mobile
+              </div>
             </div>
 
           </div>
@@ -2541,103 +3437,97 @@
          EXPERIENCE
     ====================================================== -->
 
-    <section class="experience" id="experience">
+    <section id="experience">
 
       <div class="container">
 
         <div class="experience-grid">
 
-          <div class="experience-intro reveal">
+          <div class="experience-intro">
 
-            <div class="eyebrow">
+            <div class="eyebrow reveal">
               Experience
             </div>
 
-            <h2 class="section-title">
-              5+
-              YEARS
-              BUILDING.
+            <h2 class="section-title reveal">
+              Experience that
+              <span style="color:#657084;">keeps evolving.</span>
             </h2>
 
-            <p>
-              Professional experience across website development,
-              design, WordPress, digital content, SEO and
-              optimization.
+            <p class="reveal">
+              Years of hands-on website work across different platforms,
+              clients and project requirements have shaped a practical,
+              detail-focused approach to digital work.
             </p>
 
           </div>
 
           <div class="timeline">
 
-            <div class="timeline-item reveal">
+            <article class="timeline-item reveal">
 
               <div class="timeline-date">
-                2021 — PRESENT
+                5+ YEARS
               </div>
 
               <h3 class="timeline-title">
-                Website Developer & Designer
+                Website Developer &amp; Designer
               </h3>
 
               <div class="timeline-company">
-                Freelance / Remote
+                Freelance / Client Projects
               </div>
 
               <p class="timeline-copy">
-                Designing and developing responsive, user-friendly
-                websites for businesses, brands and organizations
-                across various industries.
+                Designing, developing and refining websites for businesses
+                and brands, with a focus on responsive layouts, clean
+                interfaces, content structure and practical usability.
               </p>
 
-            </div>
+            </article>
 
-            <div class="timeline-item reveal">
+            <article class="timeline-item reveal">
 
               <div class="timeline-date">
-                2021 — 2024
+                SPECIALIZATION
               </div>
 
               <h3 class="timeline-title">
-                Bentorah Designs LLC
+                WordPress Development
               </h3>
 
               <div class="timeline-company">
-                Freelance / Remote
+                Custom Builds &amp; Page Builder Workflows
               </div>
 
               <p class="timeline-copy">
-                Designed and developed responsive WordPress websites
-                using Divi, Elementor and other page builders.
-                Customized websites, functions, pages, members and
-                third-party integrations, while implementing SEO,
-                image optimization, analytics and other improvements.
+                Working extensively with WordPress and its ecosystem,
+                including Elementor, Gutenberg, Bricks, Divi, Beaver Builder,
+                Avada and WPBakery.
               </p>
 
-            </div>
+            </article>
 
-            <div class="timeline-item reveal">
+            <article class="timeline-item reveal">
 
               <div class="timeline-date">
-                2024 — 2026
+                CROSS-PLATFORM
               </div>
 
               <h3 class="timeline-title">
-                Divine Tech
+                Multi-Platform Website Work
               </h3>
 
               <div class="timeline-company">
-                Freelance / Remote
+                Shopify · Webflow · Wix · Squarespace
               </div>
 
               <p class="timeline-copy">
-                Created websites, digital content, graphics and
-                marketing materials for businesses. Supported digital
-                marketing campaigns alongside website projects,
-                including SEO, lead generation, email marketing,
-                content planning and research.
+                Adapting design and development approaches to different
+                website platforms, project goals and content systems.
               </p>
 
-            </div>
+            </article>
 
           </div>
 
@@ -2647,98 +3537,45 @@
 
     </section>
 
-    <!-- =====================================================
-         SKILLS
-    ====================================================== -->
+                <label>
+                  Email
+                  <input name="email" type="email" autocomplete="email" required>
+                </label>
 
-    <section class="skills">
+                <label>
+                  Project Type
+                  <select name="project">
+                    <option value="">Select a project type</option>
+                    <option>New Website</option>
+                    <option>Website Redesign</option>
+                    <option>WordPress Development</option>
+                    <option>E-Commerce Website</option>
+                    <option>Landing Page</option>
+                    <option>Website Maintenance</option>
+                    <option>Other</option>
+                  </select>
+                </label>
 
-      <div class="container">
+                <label class="form-full">
+                  Project Details
+                  <textarea name="message" placeholder="Tell me about your project, goals, pages, features, timeline or anything else that would be helpful." required></textarea>
+                </label>
 
-        <div class="skills-heading reveal">
+              </div>
 
-          <div class="eyebrow">
-            Toolkit
+              <button type="submit" class="btn btn-primary magnetic">
+                Send Inquiry
+                <span>↗</span>
+              </button>
+
+              <p class="form-note">
+                This form opens your email client with the project details
+                prepared for submission.
+              </p>
+
+            </form>
+
           </div>
-
-          <h2 class="section-title">
-            THE TOOLS
-            BEHIND THE
-            WORK.
-          </h2>
-
-        </div>
-
-        <div class="skill-cloud reveal">
-
-          <span class="skill">WordPress</span>
-          <span class="skill">Elementor</span>
-          <span class="skill">Gutenberg</span>
-          <span class="skill">Bricks Builder</span>
-          <span class="skill">Divi Builder</span>
-          <span class="skill">Beaver Builder</span>
-          <span class="skill">Avada</span>
-          <span class="skill">WPBakery</span>
-          <span class="skill">Shopify</span>
-          <span class="skill">Webflow</span>
-          <span class="skill">Wix</span>
-          <span class="skill">WooCommerce</span>
-          <span class="skill">UI/UX Design</span>
-          <span class="skill">Responsive Design</span>
-          <span class="skill">Landing Pages</span>
-          <span class="skill">Website Redesign</span>
-          <span class="skill">SEO</span>
-          <span class="skill">Performance Optimization</span>
-          <span class="skill">E-Commerce</span>
-          <span class="skill">Figma</span>
-          <span class="skill">Adobe Photoshop</span>
-          <span class="skill">Adobe Illustrator</span>
-          <span class="skill">Google Analytics</span>
-          <span class="skill">Google Search Console</span>
-          <span class="skill">Hotjar</span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- =====================================================
-         FINAL CTA
-    ====================================================== -->
-
-    <section class="final-cta" id="contact">
-
-      <div class="cta-glow"></div>
-
-      <div class="container">
-
-        <div class="cta-content reveal">
-
-          <div class="eyebrow">
-            Start a Project
-          </div>
-
-          <h2 class="cta-title">
-            LET'S BUILD
-            <br>
-            SOMETHING
-            <br>
-            <span>GREAT.</span>
-          </h2>
-
-          <p class="cta-copy">
-            Have a website project, redesign or digital experience
-            in mind? Let's discuss how I can help bring it to life.
-          </p>
-
-          <a
-            href="mailto:reganjamesjuliane@gmail.com"
-            class="btn btn-primary magnetic"
-          >
-            Let's Work Together
-            <span>↗</span>
-          </a>
 
         </div>
 
@@ -2748,30 +3585,49 @@
 
   </main>
 
+
   <!-- =======================================================
        FOOTER
   ======================================================== -->
 
   <footer>
 
-    <div class="footer-inner">
+    <div class="container">
 
-      <div class="logo">
-        <span class="logo-mark"></span>
-        REGAN JULIANE DIGITAL
-      </div>
+      <div class="footer-grid">
 
-      <div class="footer-copy">
-        © 2026 Regan James Juliane. All rights reserved.
-      </div>
+        <div>
+          <div class="footer-brand">
+            REGAN JULIANE DIGITAL
+          </div>
 
-      <div class="footer-links">
+          <p class="footer-copy">
+            Website Developer & Designer creating professional,
+            responsive and user-focused digital experiences.
+          </p>
+        </div>
 
-        <a href="#home">Top</a>
+        <div class="footer-links">
 
-        <a href="mailto:reganjamesjuliane@gmail.com">
-          Email
-        </a>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+
+        </div>
+
+        <div class="footer-right">
+
+          <a href="#home" class="back-top">
+            Back to top ↑
+          </a>
+
+          <p>
+            © <span id="year"></span> Regan Juliane Digital
+          </p>
+
+        </div>
 
       </div>
 
@@ -2779,60 +3635,438 @@
 
   </footer>
 
+
   <!-- =======================================================
-       JAVASCRIPT
+       PROJECT DATA
   ======================================================== -->
 
   <script>
 
-    /* =========================================================
+    const projects = [
+
+      {
+        title: "NOVAAMP",
+        category: "WordPress / Elementor",
+        url: "https://novaamp.com/",
+        image: "https://image.thum.io/get/width/1400/crop/900/noanimate/https://novaamp.com/",
+        description: "A modern business website built around a strong visual hierarchy, responsive layouts and clear conversion-focused sections."
+      },
+
+      {
+        title: "BIG ROCK ONLINE",
+        category: "WordPress / Web Design",
+        url: "https://bigrockonline.com/",
+        image: "https://image.thum.io/get/width/1400/crop/900/noanimate/https://bigrockonline.com/",
+        description: "A professional online presence with structured content, responsive presentation and a polished user experience."
+      },
+
+      {
+        title: "REGAN JAMES DIGITAL",
+        category: "Portfolio / Web Design",
+        url: "https://live-regan-james-digital.pantheonsite.io/",
+        image: "https://image.thum.io/get/width/1400/crop/900/noanimate/https://live-regan-james-digital.pantheonsite.io/",
+        description: "Personal portfolio website focused on website development, design, responsive experiences and digital services."
+      },
+
+      {
+        title: "BENTORAH DESIGNS",
+        category: "WordPress / Divi",
+        url: "#",
+        image: "",
+        description: "Website development and customization work including responsive layouts, page-builder implementation and website improvements."
+      },
+
+      {
+        title: "DIVINE TECH",
+        category: "Website / Digital Content",
+        url: "#",
+        image: "",
+        description: "Digital and website projects supporting business communication, marketing materials and online experiences."
+      },
+
+      {
+        title: "WORDPRESS PROJECT",
+        category: "WordPress Development",
+        url: "#",
+        image: "",
+        description: "Responsive WordPress development focused on clean structure, usability and consistent visual presentation."
+      },
+
+      {
+        title: "ELEMENTOR PROJECT",
+        category: "Elementor / UI Design",
+        url: "#",
+        image: "",
+        description: "Elementor-based website design with responsive sections, structured content and reusable page components."
+      },
+
+      {
+        title: "RESPONSIVE WEBSITE",
+        category: "Responsive Web Design",
+        url: "#",
+        image: "",
+        description: "Responsive website implementation designed to maintain usability and visual consistency across screen sizes."
+      },
+
+      {
+        title: "LANDING PAGE",
+        category: "Landing Page Design",
+        url: "#",
+        image: "",
+        description: "Conversion-focused landing page design with clear messaging, visual hierarchy and responsive implementation."
+      },
+
+      {
+        title: "WEBSITE REDESIGN",
+        category: "Website Redesign",
+        url: "#",
+        image: "",
+        description: "Website redesign work focused on improving layout, spacing, visual hierarchy, responsiveness and overall usability."
+      },
+
+      {
+        title: "E-COMMERCE WEBSITE",
+        category: "WooCommerce / E-Commerce",
+        url: "#",
+        image: "",
+        description: "E-commerce website development with responsive product presentation and user-focused shopping experiences."
+      },
+
+      {
+        title: "SHOPIFY PROJECT",
+        category: "Shopify / Web Design",
+        url: "#",
+        image: "",
+        description: "Shopify website work combining clean design, responsive layouts and structured online-store experiences."
+      },
+
+      {
+        title: "WEBFLOW PROJECT",
+        category: "Webflow / Web Design",
+        url: "#",
+        image: "",
+        description: "Webflow website implementation focused on responsive layouts, polished presentation and smooth user experiences."
+      },
+
+      {
+        title: "WIX PROJECT",
+        category: "Wix / Web Design",
+        url: "#",
+        image: "",
+        description: "Wix website design and development with attention to responsive behavior, layout structure and content presentation."
+      },
+
+      {
+        title: "SQUARESPACE PROJECT",
+        category: "Squarespace / Web Design",
+        url: "#",
+        image: "",
+        description: "Squarespace website design with a clean visual system, responsive structure and professional presentation."
+      },
+
+      {
+        title: "GUTENBERG PROJECT",
+        category: "WordPress / Gutenberg",
+        url: "#",
+        image: "",
+        description: "Native WordPress block-editor development with flexible content sections and responsive page structures."
+      },
+
+      {
+        title: "BRICKS BUILDER",
+        category: "WordPress / Bricks",
+        url: "#",
+        image: "",
+        description: "Custom WordPress implementation using Bricks Builder with responsive layouts and reusable design components."
+      },
+
+      {
+        title: "BEAVER BUILDER",
+        category: "WordPress / Beaver Builder",
+        url: "#",
+        image: "",
+        description: "WordPress page-builder development focused on flexible layouts, responsive behavior and maintainable content."
+      },
+
+      {
+        title: "AVADA PROJECT",
+        category: "WordPress / Avada",
+        url: "#",
+        image: "",
+        description: "Avada-based WordPress development with responsive page structures and customized visual presentation."
+      },
+
+      {
+        title: "WPBAKERY PROJECT",
+        category: "WordPress / WPBakery",
+        url: "#",
+        image: "",
+        description: "WPBakery website development and customization with attention to layout consistency and responsive presentation."
+      },
+
+      {
+        title: "SEO OPTIMIZATION",
+        category: "SEO / Website Optimization",
+        url: "#",
+        image: "",
+        description: "Website optimization work focused on improving structure, content presentation, image handling and search visibility."
+      },
+
+      {
+        title: "PERFORMANCE OPTIMIZATION",
+        category: "Performance / Optimization",
+        url: "#",
+        image: "",
+        description: "Website performance improvements involving optimization, responsive behavior and cleaner implementation."
+      },
+
+      {
+        title: "UI / UX DESIGN",
+        category: "UI / UX",
+        url: "#",
+        image: "",
+        description: "Interface design focused on usability, visual hierarchy, consistency and clear user journeys."
+      },
+
+      {
+        title: "BUSINESS WEBSITE",
+        category: "Corporate / Business Website",
+        url: "#",
+        image: "",
+        description: "Professional business website development designed to communicate services clearly and establish a strong online presence."
+      },
+
+      {
+        title: "SERVICE WEBSITE",
+        category: "Service Business / WordPress",
+        url: "#",
+        image: "",
+        description: "Service-focused website design with organized content, responsive sections and clear calls to action."
+      },
+
+      {
+        title: "CONTENT WEBSITE",
+        category: "Content / WordPress",
+        url: "#",
+        image: "",
+        description: "Content-driven website implementation with structured pages, responsive layouts and easy-to-manage sections."
+      },
+
+      {
+        title: "MARKETING WEBSITE",
+        category: "Digital Marketing / Web",
+        url: "#",
+        image: "",
+        description: "Marketing-oriented website work supporting lead generation, content presentation and digital campaigns."
+      },
+
+      {
+        title: "CUSTOM WEBSITE",
+        category: "Custom Web Development",
+        url: "#",
+        image: "",
+        description: "Custom website development combining design, responsive implementation and functionality around specific project requirements."
+      },
+
+      {
+        title: "WEBSITE MAINTENANCE",
+        category: "WordPress / Maintenance",
+        url: "#",
+        image: "",
+        description: "Ongoing website maintenance, updates, content changes, responsive fixes and general website improvements."
+      }
+
+    ];
+
+
+    /* =======================================================
+       PROJECT RENDER
+    ======================================================== */
+
+    const projectGrid = document.getElementById("projectGrid");
+
+
+    function renderProjects() {
+
+      if (!projectGrid) return;
+
+      projectGrid.innerHTML = projects.map((project, index) => {
+
+        const hasImage = project.image && project.image.trim() !== "";
+        const isFeatured = index === 0 || index === 1;
+
+        return `
+          <article class="project ${isFeatured ? "featured" : ""} reveal">
+
+            <a
+              class="project-media"
+              href="${project.url}"
+              ${project.url !== "#" ? 'target="_blank" rel="noopener noreferrer"' : ""}
+              aria-label="Open ${project.title} project"
+            >
+
+              ${
+                hasImage
+                  ? `
+                    <img
+                      src="${project.image}"
+                      alt="${project.title} website preview"
+                      loading="${index < 3 ? "eager" : "lazy"}"
+                      onerror="this.style.display='none';this.parentElement.classList.add('preview-failed');"
+                    >
+                  `
+                  : `
+                    <div class="project-placeholder">
+                      <span>${project.title}</span>
+                      <small>${project.category}</small>
+                    </div>
+                  `
+              }
+
+              <div class="project-overlay">
+
+                <span class="project-view">
+                  View Project ↗
+                </span>
+
+              </div>
+
+            </a>
+
+            <div class="project-meta">
+
+              <div>
+                <div class="project-index">
+                  ${String(index + 1).padStart(2, "0")}
+                </div>
+
+                <h3>
+                  ${project.title}
+                </h3>
+              </div>
+
+              <div class="project-category">
+                ${project.category}
+              </div>
+
+            </div>
+
+            <p class="project-description">
+              ${project.description}
+            </p>
+
+          </article>
+        `;
+
+      }).join("");
+
+    }
+
+
+    renderProjects();
+
+
+    /* =======================================================
+       YEAR
+    ======================================================== */
+
+    const year = document.getElementById("year");
+
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+
+
+    /* =======================================================
        PRELOADER
-    ========================================================= */
+    ======================================================== */
 
     window.addEventListener("load", () => {
 
-      const preloader = document.getElementById("preloader");
-
       setTimeout(() => {
 
-        preloader.style.transition =
-          "opacity .8s cubic-bezier(.22,1,.36,1)";
+        document.body.classList.add("loaded");
 
-        preloader.style.opacity = "0";
-
-        setTimeout(() => {
-          preloader.remove();
-        }, 800);
-
-      }, 1300);
+      }, 450);
 
     });
 
 
-    /* =========================================================
-       HEADER
-    ========================================================= */
+    /* =======================================================
+       MOBILE MENU
+    ======================================================== */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    if (menuBtn && mobileMenu) {
+
+      menuBtn.addEventListener("click", () => {
+
+        const isOpen = document.body.classList.toggle("menu-open");
+
+        menuBtn.setAttribute(
+          "aria-expanded",
+          String(isOpen)
+        );
+
+      });
+
+
+      mobileMenu.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          document.body.classList.remove("menu-open");
+
+          menuBtn.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        });
+
+      });
+
+    }
+
+
+    /* =======================================================
+       HEADER ON SCROLL
+    ======================================================== */
 
     const header = document.getElementById("header");
 
+    let lastScroll = 0;
+
     window.addEventListener("scroll", () => {
 
-      if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
+      const currentScroll = window.scrollY || 0;
+
+      if (header) {
+
+        if (currentScroll > 30) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+
       }
 
-    });
+      lastScroll = currentScroll;
+
+    }, { passive: true });
 
 
-    /* =========================================================
+    /* =======================================================
        SCROLL PROGRESS
-    ========================================================= */
+    ======================================================== */
 
     const progress = document.querySelector(".scroll-progress");
 
-    window.addEventListener("scroll", () => {
+    function updateProgress() {
+
+      if (!progress) return;
 
       const scrollTop = window.scrollY;
 
@@ -2841,125 +4075,91 @@
         window.innerHeight;
 
       const percentage =
-        height > 0 ? (scrollTop / height) * 100 : 0;
+        height > 0
+          ? (scrollTop / height) * 100
+          : 0;
 
-      progress.style.width = percentage + "%";
+      progress.style.width = `${percentage}%`;
 
-    });
+    }
 
 
-    /* =========================================================
-       REVEAL ON SCROLL
-    ========================================================= */
+    window.addEventListener(
+      "scroll",
+      updateProgress,
+      { passive: true }
+    );
+
+    updateProgress();
+
+
+    /* =======================================================
+       REVEAL ANIMATIONS
+    ======================================================== */
 
     const revealElements =
       document.querySelectorAll(".reveal");
 
-    const revealObserver =
-      new IntersectionObserver(
 
-        (entries) => {
+    if ("IntersectionObserver" in window) {
 
-          entries.forEach((entry) => {
+      const revealObserver =
+        new IntersectionObserver(
+          entries => {
 
-            if (entry.isIntersecting) {
+            entries.forEach(entry => {
 
-              entry.target.classList.add("visible");
+              if (entry.isIntersecting) {
 
-              revealObserver.unobserve(entry.target);
+                entry.target.classList.add("visible");
 
-            }
+                revealObserver.unobserve(entry.target);
 
-          });
+              }
 
-        },
+            });
 
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -40px 0px"
-        }
-
-      );
-
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px"
+          }
+        );
 
 
-    /* =========================================================
-       CUSTOM CURSOR
-    ========================================================= */
+      revealElements.forEach(element => {
 
-    const cursorDot =
-      document.querySelector(".cursor-dot");
+        revealObserver.observe(element);
 
-    const cursorRing =
-      document.querySelector(".cursor-ring");
+      });
 
-    let mouseX = 0;
-    let mouseY = 0;
+    } else {
 
-    let ringX = 0;
-    let ringY = 0;
+      revealElements.forEach(element => {
 
-    window.addEventListener("mousemove", (event) => {
+        element.classList.add("visible");
 
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-
-      cursorDot.style.left = mouseX + "px";
-      cursorDot.style.top = mouseY + "px";
-
-    });
-
-    function animateCursor() {
-
-      ringX += (mouseX - ringX) * .13;
-      ringY += (mouseY - ringY) * .13;
-
-      cursorRing.style.left = ringX + "px";
-      cursorRing.style.top = ringY + "px";
-
-      requestAnimationFrame(animateCursor);
+      });
 
     }
 
-    animateCursor();
 
-
-    /* =========================================================
-       CURSOR HOVER
-    ========================================================= */
-
-    const interactiveElements =
-      document.querySelectorAll(
-        "a, button, .skill, .project, .expertise-item"
-      );
-
-    interactiveElements.forEach((element) => {
-
-      element.addEventListener("mouseenter", () => {
-        document.body.classList.add("cursor-hover");
-      });
-
-      element.addEventListener("mouseleave", () => {
-        document.body.classList.remove("cursor-hover");
-      });
-
-    });
-
-
-    /* =========================================================
+    /* =======================================================
        MAGNETIC BUTTONS
-    ========================================================= */
+    ======================================================== */
 
-    document.querySelectorAll(".magnetic")
-      .forEach((button) => {
+    const magneticElements =
+      document.querySelectorAll(".magnetic");
 
-        button.addEventListener("mousemove", (event) => {
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+
+      magneticElements.forEach(element => {
+
+        element.addEventListener("mousemove", event => {
 
           const rect =
-            button.getBoundingClientRect();
+            element.getBoundingClientRect();
 
           const x =
             event.clientX -
@@ -2971,154 +4171,332 @@
             rect.top -
             rect.height / 2;
 
-          button.style.transform =
-            `translate(${x * .12}px, ${y * .12}px)`;
+          element.style.transform =
+            `translate(${x * 0.08}px, ${y * 0.08}px)`;
 
         });
 
-        button.addEventListener("mouseleave", () => {
+        element.addEventListener("mouseleave", () => {
 
-          button.style.transform =
-            "translate(0,0)";
+          element.style.transform = "";
 
         });
-
-      });
-
-
-    /* =========================================================
-       HERO PARALLAX
-    ========================================================= */
-
-    const heroVisual =
-      document.getElementById("heroVisual");
-
-    if (window.matchMedia("(pointer:fine)").matches) {
-
-      window.addEventListener("mousemove", (event) => {
-
-        const x =
-          (event.clientX / window.innerWidth - .5);
-
-        const y =
-          (event.clientY / window.innerHeight - .5);
-
-        heroVisual.style.transform =
-          `translate(${x * 10}px, ${y * 10}px)`;
 
       });
 
     }
 
 
-    /* =========================================================
-       PROJECT 3D TILT
-    ========================================================= */
+    /* =======================================================
+       CUSTOM CURSOR
+    ======================================================== */
 
-    document.querySelectorAll(".project")
-      .forEach((project) => {
+    const cursorDot =
+      document.querySelector(".cursor-dot");
 
-        project.addEventListener("mousemove", (event) => {
+    const cursorRing =
+      document.querySelector(".cursor-ring");
 
-          if (window.innerWidth < 900) return;
+
+    if (
+      cursorDot &&
+      cursorRing &&
+      window.matchMedia("(pointer: fine)").matches
+    ) {
+
+      let mouseX = 0;
+      let mouseY = 0;
+
+      let ringX = 0;
+      let ringY = 0;
+
+
+      window.addEventListener("mousemove", event => {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        document.documentElement.style.setProperty(
+          "--mouse-x",
+          `${mouseX}px`
+        );
+
+        document.documentElement.style.setProperty(
+          "--mouse-y",
+          `${mouseY}px`
+        );
+
+        document.body.classList.add("has-pointer");
+
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+
+      });
+
+
+      function animateCursor() {
+
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+
+        requestAnimationFrame(animateCursor);
+
+      }
+
+
+      animateCursor();
+
+
+      document
+        .querySelectorAll("a, button, input, textarea, select")
+        .forEach(element => {
+
+          element.addEventListener("mouseenter", () => {
+
+            document.body.classList.add("cursor-hover");
+
+          });
+
+          element.addEventListener("mouseleave", () => {
+
+            document.body.classList.remove("cursor-hover");
+
+          });
+
+        });
+
+    }
+
+
+    /* =======================================================
+       PROJECT IMAGE TILT
+    ======================================================== */
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+
+      document
+        .querySelectorAll(".project-media")
+        .forEach(card => {
+
+          card.addEventListener("mousemove", event => {
+
+            const rect =
+              card.getBoundingClientRect();
+
+            const x =
+              (event.clientX - rect.left) /
+              rect.width;
+
+            const y =
+              (event.clientY - rect.top) /
+              rect.height;
+
+            const rotateY =
+              (x - 0.5) * 4;
+
+            const rotateX =
+              (0.5 - y) * 3;
+
+            card.style.transform =
+              `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+          });
+
+
+          card.addEventListener("mouseleave", () => {
+
+            card.style.transform = "";
+
+          });
+
+        });
+
+    }
+
+
+    /* =======================================================
+       HERO PARALLAX
+    ======================================================== */
+
+    const heroVisual =
+      document.getElementById("heroVisual");
+
+
+    if (
+      heroVisual &&
+      window.matchMedia("(pointer: fine)").matches
+    ) {
+
+      heroVisual.addEventListener(
+        "mousemove",
+        event => {
 
           const rect =
-            project.getBoundingClientRect();
+            heroVisual.getBoundingClientRect();
 
           const x =
-            event.clientX - rect.left;
+            (event.clientX - rect.left) /
+            rect.width -
+            0.5;
 
           const y =
-            event.clientY - rect.top;
+            (event.clientY - rect.top) /
+            rect.height -
+            0.5;
 
-          const rotateY =
-            ((x / rect.width) - .5) * 3;
+          const browserOne =
+            heroVisual.querySelector(".browser.one");
 
-          const rotateX =
-            ((y / rect.height) - .5) * -3;
+          const browserTwo =
+            heroVisual.querySelector(".browser.two");
 
-          project.style.transform =
-            `perspective(1000px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateY(-8px)`;
+          if (browserOne) {
 
-        });
+            browserOne.style.transform =
+              `translate(${x * 12}px, ${y * 8}px) rotate(-3deg)`;
 
-        project.addEventListener("mouseleave", () => {
+          }
 
-          project.style.transform = "";
+          if (browserTwo) {
 
-        });
+            browserTwo.style.transform =
+              `translate(${x * -10}px, ${y * -7}px) rotate(4deg)`;
 
-      });
+          }
 
-
-    /* =========================================================
-       MOBILE MENU
-    ========================================================= */
-
-    const menuBtn =
-      document.getElementById("menuBtn");
-
-    const mobileMenu =
-      document.getElementById("mobileMenu");
-
-    menuBtn.addEventListener("click", () => {
-
-      mobileMenu.classList.toggle("active");
-
-      document.body.classList.toggle(
-        "menu-open"
+        }
       );
 
-    });
+
+      heroVisual.addEventListener(
+        "mouseleave",
+        () => {
+
+          const browserOne =
+            heroVisual.querySelector(".browser.one");
+
+          const browserTwo =
+            heroVisual.querySelector(".browser.two");
+
+          if (browserOne) {
+            browserOne.style.transform = "";
+          }
+
+          if (browserTwo) {
+            browserTwo.style.transform = "";
+          }
+
+        }
+      );
+
+    }
 
 
-    document.querySelectorAll(".mobile-links a")
-      .forEach((link) => {
+    /* =======================================================
+       CONTACT FORM
+    ======================================================== */
 
-        link.addEventListener("click", () => {
-
-          mobileMenu.classList.remove("active");
-
-          document.body.classList.remove(
-            "menu-open"
-          );
-
-        });
-
-      });
+    const contactForm =
+      document.getElementById("contactForm");
 
 
-    /* =========================================================
-       SMOOTH ANCHOR OFFSET
-    ========================================================= */
+    if (contactForm) {
 
-    document.querySelectorAll('a[href^="#"]')
-      .forEach((link) => {
-
-        link.addEventListener("click", function(event) {
-
-          const target =
-            document.querySelector(
-              this.getAttribute("href")
-            );
-
-          if (!target) return;
+      contactForm.addEventListener(
+        "submit",
+        event => {
 
           event.preventDefault();
 
-          const offset = 80;
+          const formData =
+            new FormData(contactForm);
 
-          const targetPosition =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            offset;
+          const name =
+            formData.get("name") || "";
 
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
+          const email =
+            formData.get("email") || "";
+
+          const project =
+            formData.get("project") || "";
+
+          const message =
+            formData.get("message") || "";
+
+
+          const subject =
+            encodeURIComponent(
+              `Website Project Inquiry — ${name}`
+            );
+
+
+          const body =
+            encodeURIComponent(
+`Hello Regan,
+
+My name is ${name}.
+
+Email:
+${email}
+
+Project Type:
+${project}
+
+Project Details:
+${message}
+
+Thank you.`
+            );
+
+
+          window.location.href =
+            `mailto:reganjamesjuliane@gmail.com?subject=${subject}&body=${body}`;
+
+        }
+      );
+
+    }
+
+
+    /* =======================================================
+       SMOOTH ANCHOR SCROLLING
+    ======================================================== */
+
+    document
+      .querySelectorAll('a[href^="#"]')
+      .forEach(anchor => {
+
+        anchor.addEventListener("click", event => {
+
+          const targetId =
+            anchor.getAttribute("href");
+
+          if (
+            !targetId ||
+            targetId === "#"
+          ) {
+            return;
+          }
+
+          const target =
+            document.querySelector(targetId);
+
+          if (!target) {
+            return;
+          }
+
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior:
+              window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+              ).matches
+                ? "auto"
+                : "smooth"
           });
 
         });
